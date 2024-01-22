@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   View,
-  Dimensions,
 } from 'react-native';
 
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -25,6 +24,7 @@ const WorkoutBox = () => {
       kg: null,
       reps: null,
       isFinished: false,
+      id: 0,
     },
   ]);
 
@@ -35,23 +35,15 @@ const WorkoutBox = () => {
       kg: null,
       reps: null,
       isFinished: false,
+      id: lastAddedSet.id + 1,
     };
 
     setNumOfSets([...numOfSets, newSet]);
   };
 
-  const finishCurrentSet = (setNumber: number) => {
-    setNumOfSets(state => {
-      console.log(state);
-      return [];
-    });
-
-    console.log(setNumber);
-
-    return;
+  const handleRemove = (id: number) => {
+    setNumOfSets(prevState => prevState.filter(item => item.id !== id));
   };
-
-  // const {width} = Dimensions.get('window');
 
   return (
     <View style={styles.container}>
@@ -101,18 +93,7 @@ const WorkoutBox = () => {
       - Input para reps
       */}
       <GestureHandlerRootView>
-        {numOfSets.map((item, i) => (
-          <View key={i} style={styles.justifyCenter}>
-            <View style={styles.deleteIcon}>
-              <Text style={styles.deleteText}>Excluir</Text>
-            </View>
-
-            <WorkoutBoxRow
-              setInfos={item}
-              finishCurrentSet={finishCurrentSet}
-            />
-          </View>
-        ))}
+        <WorkoutBoxRow item={numOfSets} handleRemove={handleRemove} />
       </GestureHandlerRootView>
 
       {/* Botão para adicionar uma série ao exercicio selecionado */}

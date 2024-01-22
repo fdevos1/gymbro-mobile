@@ -3,4 +3,5 @@ export interface ISet {
   kg: number | null;
   reps: number | null;
   isFinished: boolean;
+  id: number;
 }
