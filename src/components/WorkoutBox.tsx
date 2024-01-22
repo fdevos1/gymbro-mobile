@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {FlatList, GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import PlusIcon from 'react-native-vector-icons/FontAwesome';
 import OptionIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -42,7 +42,11 @@ const WorkoutBox = () => {
   };
 
   const handleRemove = (id: number) => {
+    console.log('entrou');
+
     setNumOfSets(prevState => prevState.filter(item => item.id !== id));
+
+    console.log(numOfSets);
   };
 
   return (
@@ -93,7 +97,11 @@ const WorkoutBox = () => {
       - Input para reps
       */}
       <GestureHandlerRootView>
-        <WorkoutBoxRow item={numOfSets} handleRemove={handleRemove} />
+        <FlatList
+          data={numOfSets}
+          renderItem={renderItem}
+          keyExtractor={(_, index) => index.toString()}
+        />
       </GestureHandlerRootView>
 
       {/* Botão para adicionar uma série ao exercicio selecionado */}
@@ -105,6 +113,10 @@ const WorkoutBox = () => {
       </TouchableOpacity>
     </View>
   );
+
+  function renderItem({item}: {item: ISet}) {
+    return <WorkoutBoxRow item={item} handleRemove={handleRemove} />;
+  }
 };
 
 const table = StyleSheet.create({

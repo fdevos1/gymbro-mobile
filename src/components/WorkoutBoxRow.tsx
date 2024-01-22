@@ -9,16 +9,17 @@ import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
+  withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {FlatList, Gesture, GestureDetector} from 'react-native-gesture-handler';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 
 import {ISet} from '../types/Workout';
 
 import WorkoutSetLayout from './WorkoutSetLayout';
 
 interface WorkoutBoxRowProps {
-  item: ISet | ISet[];
+  item: ISet;
   handleRemove: (id: number) => void;
 }
 
@@ -127,7 +128,8 @@ const WorkoutBoxRow = ({item, handleRemove}: WorkoutBoxRowProps) => {
       <View style={styles.deleteContainer}>
         <Animated.View style={[styles.deleteInnerContainer, rDeleteViewStyles]}>
           <AnimatedTouchableOpacity
-            style={[styles.textContainer, rTextContainer]}>
+            style={[styles.textContainer, rTextContainer]}
+            onPress={handlePress}>
             <Animated.Text style={[styles.remove, rRemove]}>
               Remover
             </Animated.Text>
@@ -138,23 +140,15 @@ const WorkoutBoxRow = ({item, handleRemove}: WorkoutBoxRowProps) => {
         </Animated.View>
       </View>
       <GestureDetector gesture={gesture}>
-        <FlatList
-          data={item}
-          renderItem={renderItem}
-          keyExtractor={(_, index) => index.toString()}
-        />
+        <WorkoutSetLayout item={item} style={rInnerContainer} />
       </GestureDetector>
     </Animated.View>
   );
 
-  function renderItem({item}: {item: ISet}) {
-    return (
-      <WorkoutSetLayout
-        item={item}
-        style={rInnerContainer}
-        handleRemove={handleRemove(item.id)}
-      />
-    );
+  function handlePress() {
+    transX.value = withSpring(-DEVICE_WIDTH, undefined, () => {
+      viewHeight.value = 0;
+    });
   }
 };
 
@@ -168,7 +162,7 @@ const styles = StyleSheet.create({
   deleteContainer: {
     position: 'absolute',
     right: 0,
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#ff5050',
     justifyContent: 'center',
     alignItems: 'flex-end',
     height: '100%',
@@ -189,7 +183,6 @@ const styles = StyleSheet.create({
   deleteInnerContainer: {
     position: 'absolute',
     backgroundColor: '#ff5050',
-    borderRadius: 200,
     justifyContent: 'center',
     alignItems: 'center',
   },
