@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   View,
+  Modal,
 } from 'react-native';
 
 import {FlatList, GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -27,6 +28,7 @@ const WorkoutBox = () => {
       id: 0,
     },
   ]);
+  const [modalVisibility, setModalVisibility] = useState(false);
 
   const addNewSet = () => {
     const lastAddedSet = numOfSets[numOfSets.length - 1];
@@ -56,12 +58,43 @@ const WorkoutBox = () => {
       <View style={table.header}>
         <Text style={table.bold}>Título</Text>
 
-        <TouchableHighlight>
-          <View style={table.options}>
-            <OptionIcon name="options" />
-          </View>
-        </TouchableHighlight>
+        <View style={table.buttons}>
+          <TouchableOpacity onPress={() => setModalVisibility(true)}>
+            <View style={table.options}>
+              <PlusIcon name="plus" />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableHighlight>
+            <View style={table.options}>
+              <OptionIcon name="options" />
+            </View>
+          </TouchableHighlight>
+        </View>
       </View>
+
+      <Modal
+        animationType="fade"
+        visible={modalVisibility}
+        onRequestClose={() => setModalVisibility(!modalVisibility)}
+        transparent={true}>
+        <View
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(28,28,28, 0.25)',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <View
+            style={{
+              width: '80%',
+              height: 500,
+              backgroundColor: '#fff',
+              borderRadius: 4,
+            }}></View>
+        </View>
+      </Modal>
 
       {/*
         Título da caixa
@@ -132,6 +165,10 @@ const table = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: '#09090b',
+  },
+  buttons: {
+    flexDirection: 'row',
+    gap: 4,
   },
   options: {
     backgroundColor: '#e4e4e7',
