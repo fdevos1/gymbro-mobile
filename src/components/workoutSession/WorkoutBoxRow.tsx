@@ -14,7 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 
-import {ISet} from '../types/Workout';
+import {ISet} from '../../types/Workout';
 
 import WorkoutSetLayout from './WorkoutSetLayout';
 

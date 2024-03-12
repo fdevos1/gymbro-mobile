@@ -16,8 +16,8 @@ import OptionIcon from 'react-native-vector-icons/SimpleLineIcons';
 
 import WorkoutBoxRow from './WorkoutBoxRow';
 
-import {ISet} from '../types/Workout';
-import ExerciseList from './ExerciseList';
+import {ISet} from '../../types/Workout';
+import ExerciseList from '../ExerciseList';
 
 const WorkoutBox = () => {
   const [numOfSets, setNumOfSets] = useState<ISet[]>([
@@ -45,11 +45,7 @@ const WorkoutBox = () => {
   };
 
   const handleRemove = (id: number) => {
-    console.log('entrou');
-
     setNumOfSets(prevState => prevState.filter(item => item.id !== id));
-
-    console.log(numOfSets);
   };
 
   return (
@@ -57,17 +53,17 @@ const WorkoutBox = () => {
       {/* Título do exercicio e Opções */}
 
       <View style={table.header}>
-        <Text style={table.bold}>Título</Text>
+        <Text style={table.bold}>Treino 1</Text>
 
         <View style={table.buttons}>
           <TouchableOpacity onPress={() => setModalVisibility(true)}>
-            <View style={table.options}>
+            <View style={table.button}>
               <PlusIcon name="plus" />
             </View>
           </TouchableOpacity>
 
           <TouchableHighlight>
-            <View style={table.options}>
+            <View style={table.button}>
               <OptionIcon name="options" />
             </View>
           </TouchableHighlight>
@@ -87,11 +83,15 @@ const WorkoutBox = () => {
       {/*
         Título da caixa
         Conter:
+        - Nome do exercicio
         - Sets
         - Peso Anterior (x kg * reps)
         - Peso Atual
         - Reps
         */}
+      <View>
+        <Text style={table.exerciseName}>Nome exercicio</Text>
+      </View>
 
       <View style={table.row}>
         <Text style={[table.bold, table.smallCol, styles.centeredText]}>
@@ -117,13 +117,15 @@ const WorkoutBox = () => {
       - Input para inserir o peso levantado no set
       - Input para reps
       */}
-      <GestureHandlerRootView>
-        <FlatList
-          data={numOfSets}
-          renderItem={renderItem}
-          keyExtractor={(_, index) => index.toString()}
-        />
-      </GestureHandlerRootView>
+      <View style={table.body}>
+        <GestureHandlerRootView>
+          <FlatList
+            data={numOfSets}
+            renderItem={renderItem}
+            keyExtractor={(_, index) => index.toString()}
+          />
+        </GestureHandlerRootView>
+      </View>
 
       {/* Botão para adicionar uma série ao exercicio selecionado */}
       <TouchableOpacity
@@ -158,12 +160,14 @@ const table = StyleSheet.create({
     flexDirection: 'row',
     gap: 4,
   },
-  options: {
+  button: {
     backgroundColor: '#e4e4e7',
     color: '#000',
-    paddingHorizontal: 4,
-    paddingVertical: 2,
+    width: 20,
+    height: 16,
     borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   row: {
     flexDirection: 'row',
@@ -195,12 +199,21 @@ const table = StyleSheet.create({
   activeInput: {
     borderWidth: 1,
   },
+  body: {
+    paddingHorizontal: 4,
+  },
+  exerciseName: {
+    paddingHorizontal: 8,
+    fontSize: 18,
+    fontWeight: '600',
+  },
 });
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
     backgroundColor: '#fafaf9',
+    minHeight: '80%',
   },
   button: {
     flexDirection: 'row',

@@ -1,18 +1,18 @@
 import React from 'react';
 
 import {StyleSheet, View} from 'react-native';
+import {useClickOutside} from 'react-native-click-outside';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Searchbar from './Searchbar';
 
 const ExerciseList = ({handleClose}: {handleClose: () => void}) => {
+  const ref = useClickOutside<View>(() => handleClose());
+
   return (
     <View style={styles.container}>
-      <View style={styles.box}>
+      <View style={styles.box} ref={ref}>
         <View style={styles.header}>
-          <View>
-            <View>{/* SEARCH BAR */}</View>
-            <Icon name="close" onPress={handleClose} />
-          </View>
+          <Searchbar />
         </View>
         <View style={styles.list}>{/* LISTA DE EXERCICIO */}</View>
       </View>
@@ -33,14 +33,16 @@ const styles = StyleSheet.create({
     height: 500,
     backgroundColor: '#fff',
     borderRadius: 4,
-    padding: 4,
+    padding: 12,
     gap: 8,
   },
   header: {
     width: '100%',
-    height: 80,
+    height: 28,
     flexDirection: 'row',
-    gap: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 16,
   },
   list: {
     height: '100%',

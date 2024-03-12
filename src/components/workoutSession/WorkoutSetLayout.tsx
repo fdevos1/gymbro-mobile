@@ -10,7 +10,7 @@ import {
 import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import {ISet} from '../types/Workout';
+import {ISet} from '../../types/Workout';
 
 const styles = StyleSheet.create({
   container: {

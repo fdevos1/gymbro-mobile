@@ -2,11 +2,14 @@ import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 
 import Workout from './src/screens/workout';
+import {ClickOutsideProvider} from 'react-native-click-outside';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
-      <Workout />
+      <ClickOutsideProvider>
+        <Workout />
+      </ClickOutsideProvider>
     </SafeAreaView>
   );
 }

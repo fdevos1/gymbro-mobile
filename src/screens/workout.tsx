@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import WorkoutBox from '../components/WorkoutBox';
+import WorkoutBox from '../components/workoutSession/WorkoutBox';
 
 function Workout() {
   return (
