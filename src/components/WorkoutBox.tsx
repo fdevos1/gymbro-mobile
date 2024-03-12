@@ -17,6 +17,7 @@ import OptionIcon from 'react-native-vector-icons/SimpleLineIcons';
 import WorkoutBoxRow from './WorkoutBoxRow';
 
 import {ISet} from '../types/Workout';
+import ExerciseList from './ExerciseList';
 
 const WorkoutBox = () => {
   const [numOfSets, setNumOfSets] = useState<ISet[]>([
@@ -78,22 +79,9 @@ const WorkoutBox = () => {
         visible={modalVisibility}
         onRequestClose={() => setModalVisibility(!modalVisibility)}
         transparent={true}>
-        <View
-          style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'rgba(28,28,28, 0.25)',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <View
-            style={{
-              width: '80%',
-              height: 500,
-              backgroundColor: '#fff',
-              borderRadius: 4,
-            }}></View>
-        </View>
+        <ExerciseList
+          handleClose={() => setModalVisibility(!modalVisibility)}
+        />
       </Modal>
 
       {/*
