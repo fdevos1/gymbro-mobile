@@ -1,15 +1,14 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
-import Workout from './src/screens/workout';
 import {ClickOutsideProvider} from 'react-native-click-outside';
+import Navigator from './src/components/Navigator';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
-      <ClickOutsideProvider>
-        <Workout />
-      </ClickOutsideProvider>
+      <Navigator />
     </SafeAreaView>
   );
 }
@@ -17,6 +16,10 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  navigation: {
+    width: '100%',
+    backgroundColor: '#ccc',
   },
 });
 
