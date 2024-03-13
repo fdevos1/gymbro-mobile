@@ -1,12 +1,13 @@
 import React from 'react';
+import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Dashboard from '../screens/dashboard';
-import {View} from 'react-native';
 
 const Navigator = () => {
   const Tab = createBottomTabNavigator();
@@ -33,14 +34,42 @@ const Navigator = () => {
         <Icon name="plus" color={color} size={size} />
       ),
     },
+    {
+      name: 'Dieta',
+      component: () => <View></View>,
+      icon: ({color, size}: {color: string; size: number}) => (
+        <MaterialCommunityIcons
+          name="silverware-fork-knife"
+          color={color}
+          size={size}
+        />
+      ),
+    },
+    {
+      name: 'Configurações',
+      component: () => <View></View>,
+      icon: ({color, size}: {color: string; size: number}) => (
+        <Icon name="gear" color={color} size={size} />
+      ),
+    },
   ];
 
   return (
     <NavigationContainer>
       <Tab.Navigator
+        initialRouteName="Treino"
         screenOptions={{
-          tabBarStyle: {backgroundColor: 'grey'},
           tabBarActiveTintColor: 'white',
+          tabBarActiveBackgroundColor: 'red',
+
+          tabBarItemStyle: {
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+          },
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '600',
+          },
         }}>
         {tabs.map(route => (
           <Tab.Screen
