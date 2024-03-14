@@ -59,6 +59,7 @@ const Navigator = () => {
       <Tab.Navigator
         initialRouteName="Treino"
         screenOptions={{
+          headerTitleStyle: {fontSize: 30, fontWeight: '700'},
           tabBarActiveTintColor: 'white',
           tabBarActiveBackgroundColor: 'red',
 

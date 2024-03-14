@@ -1,14 +1,17 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {Dimensions, SafeAreaView, StyleSheet} from 'react-native';
 
 import {ClickOutsideProvider} from 'react-native-click-outside';
 import Navigator from './src/components/Navigator';
 
+const DEVICE_WIDTH = Dimensions.get('screen').width;
+
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
-      <Navigator />
+      <ClickOutsideProvider>
+        <Navigator />
+      </ClickOutsideProvider>
     </SafeAreaView>
   );
 }
@@ -18,7 +21,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   navigation: {
-    width: '100%',
+    width: DEVICE_WIDTH,
     backgroundColor: '#ccc',
   },
 });
